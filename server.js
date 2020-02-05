@@ -10,9 +10,9 @@ console.log('baw')
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
 
-app.get('/*', function(req, res) {
-  console.log('mew')
-  res.sendFile(path.join(__dirname+'/dist/angular-material-login-template/index.html'));
+app.get('*', (request, response) => {
+  console.log('ngehe')
+  response.sendFile(path.join(__dirname + '/dist/angular-material-login-template/index.html'));
 });
 
 console.log('Console listening!');
