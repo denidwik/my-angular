@@ -23,16 +23,16 @@ import {MatCardModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {ClrLoadingModule} from '@clr/angular';
 import {AlertComponent} from './components/alert.component';
+import {HomeComponent} from './components/home';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AlertComponent,
+    HomeComponent,
     LogInComponent,
     RegisterComponent,
-    RegisterComponent,
-    LogInComponent,
-    AlertComponent
   ],
   imports: [
     BrowserModule,

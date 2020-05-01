@@ -1,8 +1,13 @@
-﻿export class User {
+﻿import {Role} from './role';
+
+export class User {
     id: number;
-    username: string;
+    userName: string;
     password: string;
     firstName: string;
     lastName: string;
     token: string;
+    accessToken: string;
+    tokenType: string;
+    role: Role;
 }

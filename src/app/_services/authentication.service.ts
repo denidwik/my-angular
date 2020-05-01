@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, config, Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {SERVER_ADDR} from '../_const/url';
@@ -10,6 +10,7 @@ import {User} from '../_models/user';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
+    public validateToken: boolean;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -34,5 +35,20 @@ export class AuthenticationService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
+    }
+
+    getHeaders(): HttpHeaders {
+      let headers = new HttpHeaders();
+      const token = this.currentUserSubject.getValue().accessToken;
+      headers = headers.append('Content-Type', 'application/json');
+      if (token !== null) {
+        headers = headers.append('Authorization', token);
+      }
+      return headers;
+    }
+
+    checkToken(token) {
+      const headers = new HttpHeaders({ Authorization: token });
+      return this.http.get<boolean>(SERVER_ADDR + '/api/auth/checkToken', {headers});
     }
 }
