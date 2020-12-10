@@ -3,23 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { LogInComponent } from './components/log-in/log-in.component';
 import {AuthGuard} from './_helpers/auth.guard';
 import {HomeComponent} from './components/home';
+import {KaryawanComponent} from './components/master/karyawan';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard]
-  }/*,
-  {
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
-  }*/,
-  {
-    path: 'login',
-    component: LogInComponent
-  },
+  { path: 'login', component: LogInComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard],
+    children:  [
+      {path: '', redirectTo: '', pathMatch: 'full'},
+      {path: 'employee', component: KaryawanComponent}
+    ]
+  }
+  ,
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

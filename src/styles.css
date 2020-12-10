@@ -1,3 +1,5 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 html,
 body {
   height: 100%;
@@ -108,4 +110,17 @@ body {
 
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0.8375em 0;
+}
+.example-container {
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.example-sidenav {
+  user-select: none;
 }
