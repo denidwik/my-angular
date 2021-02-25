@@ -31,19 +31,14 @@ export class AuthenticationService {
             }));
     }
 
-    xlogout() {
+    logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
 
     getHeaders(): HttpHeaders {
-      let headers = new HttpHeaders();
-      const token = this.currentUserSubject.getValue().accessToken;
-      headers = headers.append('Content-Type', 'application/json');
-      if (token !== null) {
-        headers = headers.append('Authorization', token);
-      }
+      const headers = new HttpHeaders({ Authorization: this.currentUserValue.token });
       return headers;
     }
 

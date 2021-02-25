@@ -10,4 +10,14 @@ export class User {
     accessToken: string;
     tokenType: string;
     role: Role;
+
+    code : string;
+
+    getToken() {
+      return this.accessToken + ' ' + this.token;
+    }
+}
+
+export interface UserAttributes {
+  content: Array<User>;
 }

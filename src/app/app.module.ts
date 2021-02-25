@@ -21,7 +21,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
 import {MatCardModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
-import {ClrDropdownModule, ClrLoadingModule} from '@clr/angular';
+import {ClrAlertModule, ClrDropdownModule, ClrLoadingModule} from '@clr/angular';
 import {AlertComponent} from './components/alert.component';
 import {HomeComponent} from './components/home';
 import {KaryawanComponent} from './components/master/karyawan';
@@ -48,6 +48,7 @@ import {KaryawanComponent} from './components/master/karyawan';
     HttpClientModule,
     ClrLoadingModule,
     ClrDropdownModule,
+    ClrAlertModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

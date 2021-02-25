@@ -1,25 +1,19 @@
-.full-width {
+table {
   width: 100%;
-}
-.menu-button {
-  transition: 300ms ease-in-out;
-  transform: rotate(0deg);
-}
-.menu-button.rotated {
-  transform: rotate(180deg);
-}
-.submenu {
+  overflow-x: auto;
   overflow-y: hidden;
-  transition: transform 300ms ease;
-  transform: scaleY(0);
-  transform-origin: top;
-  padding-left: 30px;
+  min-width: 500px;
 }
-.submenu.expanded {
-  transform: scaleY(1);
+
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px;
 }
-.example-fill-remaining-space {
-  /* This fills the remaining space, by using flexbox.
-     Every toolbar row uses a flexbox row layout. */
-  flex: 1 1 auto;
+
+.no-records {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
 }
