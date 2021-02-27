@@ -46,7 +46,7 @@ export class HomeComponent {
         // this.userService.getById(this.currentUser.id).pipe(first()).subscribe(user => {
         //     this.loading = false;
         //     this.userFromApi = user;
-        // });
+        // }); 
     }
 
   mouseenter() {
