@@ -1,49 +1,58 @@
-﻿import { Injectable } from '@angular/core';
+﻿import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, config, Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {SERVER_ADDR} from '../_const/url';
 import {User} from '../_models/user';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
-    public validateToken: boolean;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  public validateToken: boolean;
 
-    constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-    }
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
-    }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
-    login(email, password) {
-        return this.http.post<any>(`${SERVER_ADDR}/api/auth/signin`, { email, password })
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return user;
-            }));
-    }
+  login(email, password) {
+    return this.http.post<any>(`${SERVER_ADDR}/api/auth/signin`, {email, password})
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      }));
+  }
 
-    logout() {
-        // remove user from local storage and set current user to null
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-    }
+  logout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
 
-    getHeaders(): HttpHeaders {
-      const headers = new HttpHeaders({ Authorization: this.currentUserValue.token });
-      return headers;
-    }
+  getHeaders(): HttpHeaders {
+    const headers = new HttpHeaders({Authorization: this.currentUserValue.token});
+    return headers;
+  }
 
-    checkToken(token) {
-      const headers = new HttpHeaders({ Authorization: token });
-      return this.http.get<boolean>(SERVER_ADDR + '/api/auth/checkToken', {headers});
-    }
+  getTokenWithContentTypeMultipart(): HttpHeaders {
+    const headers = new HttpHeaders({
+      Authorization: this.currentUserValue.token,
+      "Content-Type": "multipart/form-data",
+      "accept": "*/*",
+     });
+    return headers;
+  }
+
+  checkToken(token) {
+    const headers = new HttpHeaders({Authorization: token});
+    return this.http.get<boolean>(SERVER_ADDR + '/api/auth/checkToken', {headers});
+  }
 }

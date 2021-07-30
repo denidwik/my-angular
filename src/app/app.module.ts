@@ -30,6 +30,8 @@ import {LoginService} from './_services/login.service';
 import {ErrorDialogService} from './components/error-dialog/errordialog.service';
 import {HttpConfigInterceptor} from './interceptor/httpconfig.interceptor';
 import {ErrorDialogComponent} from './components/error-dialog/errordialog.component';
+import {AddKaryawanComponent} from './components/master/karyawan/addEmployee/add.karyawan.component';
+import {OnlynumberDirective} from './interceptor/onlynumber.directive';
 
 
 @NgModule({
@@ -37,10 +39,12 @@ import {ErrorDialogComponent} from './components/error-dialog/errordialog.compon
     AppComponent,
     ErrorDialogComponent,
     AlertComponent,
+    OnlynumberDirective,
     HomeComponent,
     LogInComponent,
     RegisterComponent,
     KaryawanComponent,
+    AddKaryawanComponent,
   ],
   imports: [
     BrowserModule,

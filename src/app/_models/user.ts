@@ -2,6 +2,7 @@
 
 export class User {
     id: number;
+    employeeCode: string;
     userName: string;
     password: string;
     firstName: string;
@@ -10,6 +11,12 @@ export class User {
     accessToken: string;
     tokenType: string;
     role: Role;
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    gender: string = 'M';
+    address: string;
+    fileName: string = '19826a2c-a7fb-4932-b946-f08651eca533.png';
 
     code : string;
 

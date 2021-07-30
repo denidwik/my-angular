@@ -9,7 +9,7 @@
 </clr-alert>
 
 <div class="col-sm-12" style="padding-right: 10px; padding-bottom: 20px;">
-  <button mat-flat-button color="primary" style="float: right">Tambah Karyawan</button>
+  <button mat-flat-button color="primary" style="float: right" (click)="redirectToAdd()" [clrLoading]="loading">Tambah Karyawan</button>
 </div>
 
 <div fxLayout fxLayoutAlign="center" class="col-sm-12">

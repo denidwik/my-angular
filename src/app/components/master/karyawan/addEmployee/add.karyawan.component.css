@@ -1,0 +1,48 @@
+table {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: 500px;
+}
+
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px;
+}
+
+.no-records {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+h3{
+  text-align: center;
+}
+
+div{
+  padding-bottom: 1%;
+  padding-top: 1%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height:100%; position:relative;
+}
+.footer {
+  width: 100%;
+  position:absolute; bottom:0px;
+  background-color: blue;
+}
+.footer-ghost { height:115px; }

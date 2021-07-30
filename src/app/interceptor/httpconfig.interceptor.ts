@@ -11,22 +11,23 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import {ErrorDialogService} from '../components/error-dialog/errordialog.service';
+import {User} from '../_models/user';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
     constructor(public errorDialogService: ErrorDialogService,) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token: string = localStorage.getItem('token');
+        const token: User = JSON.parse(localStorage.getItem('currentUser'));
 
-        if (token) {
-            request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+        if (localStorage.getItem('currentUser')) {
+            request = request.clone({ headers: request.headers.set('Authorization', token.token) });
         }
 
-        if (!request.headers.has('Content-Type')) {
-            request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
-        }
-
-        request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+        // if (!request.headers.has('Content-Type')) {
+        //     request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+        // }
+        //
+        // request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {

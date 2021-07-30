@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../_services/authentication.service';
 import {MatPaginator, MatSort, MatSortModule, MatTableDataSource} from '@angular/material';
 import {EmployeeDatasource} from '../../../datasource/employee.datasource';
 import {EmployeeService} from '../../../_services/employee.service';
+import {Router} from '@angular/router';
 
 
 
@@ -31,6 +32,7 @@ export class KaryawanComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private authenticationService: AuthenticationService,
     private employeeService: EmployeeService,
@@ -48,15 +50,13 @@ export class KaryawanComponent implements AfterViewInit {
     // console.log( this.currentUser)
     this.currentUser = this.authenticationService.currentUserValue;
 
-    this.userService.getAll({page: 0, size: 10}).pipe(map(
+    this.userService.getAll({page: 0, size:10}).pipe(map(
       response => {
-        console.log(response);
         return response;
       }
     )).subscribe(
       result => {
         this.dataSource.data = result;
-        console.log(this.dataSource.data);
       }
     );
 
@@ -76,10 +76,16 @@ export class KaryawanComponent implements AfterViewInit {
   }
 
   public redirectToUpdate = (id: string) => {
-
+    localStorage.setItem("empId", JSON.stringify(id));
+    this.router.navigate(['/employee/addemployee']);
   }
 
   public redirectToDelete = (id: string) => {
 
+  }
+
+  redirectToAdd() {
+    this.loading = true;
+    this.router.navigate(['/employee/addemployee']);
   }
 }

@@ -1,0 +1,64 @@
+﻿
+  <div class="container" style="margin-top: 70px;">
+    <div class="col-sm-8 offset-sm-2">
+      <div class="info-form">
+        <form #userForm=ngForm (ngSubmit)="testUpload()" enctype="multipart/form-data" method="post">
+          <div class="form-group">
+            <label for="id">Employee Code</label>
+            <input ngModel="{{user.employeeCode}}" type="text" name="id" class="form-control" id="id" aria-describedby="idHelp" placeholder="Enter your employee code" required #employeeCode="ngModel"
+                   [ngClass]="{ 'is-invalid': userForm.submitted &&  employeeCode.errors }">
+            <small id="idHelp" class="form-text text-muted">Employee Code</small>
+            <small *ngIf="!showFirstTime && !isValidFormSubmitted && employeeCode.errors" class="form-text text-muted" style="color:red !important;">Employee code required.</small>
+
+            <label for="fullName">Full Name</label>
+            <input ngModel="{{user.fullName}}" type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter your employee name" required #fullName="ngModel"
+                   [ngClass]="{ 'is-invalid': userForm.submitted &&  fullName.errors }">
+            <small id="nameHelp" class="form-text text-muted">Enter your employee name</small>
+            <small *ngIf="!showFirstTime && !isValidFormSubmitted && fullName.errors" class="form-text text-muted" style="color:red !important;">Employee name required.</small>
+
+            <label for="email">Email</label>
+            <input ngModel="{{user.email}}" type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   placeholder="Enter your employee email" required [pattern]="emailPattern" #email="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted &&  email.errors }">
+            <small id="nameEmail" class="form-text text-muted">Employee email</small>
+            <small *ngIf="!showFirstTime && !isValidFormSubmitted && email.errors.required" class="form-text text-muted" style="color:red !important;">Email required.</small>
+            <small *ngIf="!showFirstTime && !isValidFormSubmitted && email.errors.pattern" class="form-text text-muted" style="color:red !important;">Email not valid pattern.</small>
+
+            <label for="email">Phone Number</label>
+            <input ngModel="{{user.phoneNumber}}" appOnlynumber maxlength="12" type="text" name="phoneNumber" class="form-control" id="phoneNumber" aria-describedby="emailHelp"
+                   placeholder="Enter your employee phone number" required #phoneNumber="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted &&  phoneNumber.errors }" >
+            <small id="namePhoneNumber" class="form-text text-muted">Employee Number</small>
+            <small *ngIf="!showFirstTime && !isValidFormSubmitted && phoneNumber.errors.required" class="form-text text-muted" style="color:red !important;" class="form-text text-muted">Phone Number required.</small>
+
+            <label for="gender">Gender</label>
+            <form>
+              <input ngModel="{{user.gender}}" type="radio" id="male" name="gender" value="M">
+              <label for="male" style="margin-right: 4%">Male</label>
+              <input ngModel="{{user.gender}}" type="radio" id="female" name="gender" value="F" name="gender">
+              <label for="female">Female</label><br>
+            </form>
+            <small id="empGender" class="form-text text-muted">Employee gender</small>
+
+            <label for="address">Address</label>
+            <textarea ngModel="{{user.address}}" name="address" class="form-control" id="address" aria-describedby="descHelp"></textarea>
+            <small id="empAddress" class="form-text text-muted">Employee address</small>
+
+            <label for="role">Role</label>
+            <select matNativeControl [(ngModel)]="selectedCar" name="car">
+              <option value="" selected></option>
+              <option *ngFor="let car of cars" [value]="car.value">
+                {{car.viewValue}}
+              </option>
+            </select>
+            <small class="form-text text-muted">Employee gender</small>
+
+            <label for="photo">Photo</label>
+            <span style="color:red;" *ngIf="message">{{message}}</span>
+            <input name="photo" class="form-control" style="margin-bottom: 2%" type="file" accept='image/*' #photo (change)="preview(photo.files)" />
+            <img [src]="imgURL" height="200" *ngIf="imgURL">
+            <small id="empPhoto" class="form-text text-muted">Employee Photo</small>
+          </div>
+          <button mat-flat-button color="primary" type = "submit" *ngIf="saveOrEdit"> Save Upload </button>
+        </form>
+      </div>
+    </div>
+  </div>
